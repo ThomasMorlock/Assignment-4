@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Clients
 {
-	public class CLient
+	public class Client
 	{
 		// Private Fields.
 		// private const double ACEPROMAZINEFORCAT = 0.002;
@@ -16,10 +16,10 @@ namespace Clients
 		private string _firstName;
 		private string _lastName;
 		private int _weight;
-		private double _height;
+		private int _height;
 
 		// Non-Greedy Constructor.
-		public Pet()
+		public Client()
 		{
 			FirstName="XXXX";
 			LastName="YYYY";
@@ -70,48 +70,62 @@ namespace Clients
 			}
 		}
 
-		public double Weight
+		public double Height
 		{
-			get { return _weight; }
+			get { return _height; }
 			set
 			{
 				if (value < 0.0)
-					throw new ArgumentException("Weight must be a positive value (0 or greater)");
-				_weight = value;
+					throw new ArgumentException("Height must be a positive value (0 or greater)");
+				_height = value;
 			}
 		}
    
 	 	// Read Only Fully Implemented Properties
-		public double Acepromazine
+		public double BmiScore
 		{
 			get
 			{
-				double dosage = 0.0;
-				if (Type.ToUpper().Equals("CAT"))
-					dosage = Weight *(ACEPROMAZINEFORCAT / 10.0);
-				else
-					dosage = Weight *(ACEPROMAZINEFORDOG / 10.0);
-				return dosage;
+				double bmiScore = 0.0;
+				bmiScore = Weight / Math.Pow(Height, 2) * 703;
+				return bmiScore;
 			}
 		}
 
-		public double Carprofen
+		public double BmiStatus
 		{
 			get
 			{
-				double dosage = 0.0;
-				if (Type.ToUpper().Equals("CAT"))
-					dosage = Weight *(CARPROFENFORCAT / 12.0);
-				else
-					dosage = Weight *(CARPROFENFORDOG / 12.0);
-				return dosage;
+				double bmiScore = BmiScore;
+				string bmiStatus = "BBBB";
+				if (bmiScore <= 18.4)
+				{
+					bmiStatus = "Underweight";
+				}
+				else if (bmiScore > 18.4 && bmiScore <= 24.9)
+				{
+					bmiStatus = "Normal";
+				}
+				else if (bmiScore > 24.9 && bmiScore <= 39.9)
+				{
+					bmiStatus = "Overweight";
+				}
+				else if (bmiScore >= 40)
+				{
+					bmiStatus = "Obese";
+				}
+				else 
+				{
+					bmiStatus = "Invalid value. BmiStatus cannot be less than zero.";
+				}
+				return bmiStatus;
 			}
 		}
 
 		// method
 		public override string ToString()
 		{
-			return $"{Tag},{Name},{Age},{Weight},{Type}";
+			return $"{FirstName}, {LastName}";
 		}
 	}
 }

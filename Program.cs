@@ -1,6 +1,6 @@
 ﻿using Clients;
 
-Client newClient = new();
+Client myClient = new();
 List<Client> listOfClients = [];
 
 LoadFileValuesToMemory(listOfClients);
@@ -13,10 +13,9 @@ while (loopAgain)
 		DisplayMainMenu();
 		string mainMenuChoice = Prompt("\nEnter a Main Menu Choice: ").ToUpper();
 		if (mainMenuChoice == "N")
-			myPet = NewPet();
+			myClient = NewClient();
 		if (mainMenuChoice == "S")
-			ShowPetInfo(myPet);
-
+			ShowClientInfo(myClient);
 		if (mainMenuChoice == "A")
 			AddPetToList(myPet, listOfPets);
 		if (mainMenuChoice == "F")
@@ -61,9 +60,9 @@ while (loopAgain)
 void DisplayMainMenu()
 {
 	Console.WriteLine("\nMain Menu");
-	Console.WriteLine("N) New Pet PartA");
-	Console.WriteLine("S) Show Pet Info PartA");
-	Console.WriteLine("E) Edit Pet Info PartA");
+	Console.WriteLine("N) New Client PartA");
+	Console.WriteLine("S) Show Client BMI Info PartA");
+	Console.WriteLine("E) Edit Client Info PartA");
 	Console.WriteLine("A) Add Pet To List PartB");
 	Console.WriteLine("F) Find Pet In List PartB");
 	Console.WriteLine("R) Remove Pet From List PartB");
@@ -82,13 +81,13 @@ void DisplayEditMenu()
 	Console.WriteLine("R) Return to Main Menu");
 }
 
-void ShowPetInfo(Pet pet)
+void ShowClientInfo(Client client)
 {
-	if(pet == null)
+	if(client == null)
 		throw new Exception($"No Pet In Memory");
-	Console.WriteLine($"\n{pet.ToString()}");
-	Console.WriteLine($"Acepromazine Dose Required  :\t{pet.Acepromazine:n4}");
-	Console.WriteLine($"Carprofen Dose Required     :\t{pet.Carprofen:n4}");
+	Console.WriteLine($"\n{client.ToString()}");
+	Console.WriteLine($"BMI Score    :\t{client.BmiScore:n4}");
+	Console.WriteLine($"BMI Status   :\t{client.BmiStatus:n4}");
 }
 
 string Prompt(string prompt)
@@ -133,63 +132,46 @@ double PromptDoubleBetweenMinMax(String msg, double min, double max)
 	return num;
 }
 
-Pet NewPet()
+Client NewClient()
 {
 	//Console.WriteLine("Not Implemented Yet PartA");
-	Pet myPet = new();
-	GetTag(myPet);
-	GetName(myPet);
-	GetAge(myPet);
-	GetWeight(myPet);
-	GetType(myPet);
-	return myPet;
+	Client myClient = new();
+	GetFirstName(myClient);
+	GetLastName(myClient);
+	GetWeight(myClient);
+	GetHeight(myClient);
+	return myClient;
 }
 
-void GetTag(Pet pet)
+void GetFirstName(Client client)
 {
 	//Console.WriteLine("Not Implemented Yet PartA");
-	string myString = Prompt($"Enter Tag: ");
-	pet.Tag = myString;
+	string myString = Prompt($"Enter First Name: ");
+	client.FirstName = myString;
 }
 
-void GetName(Pet pet)
+void GetLastName(Client client)
 {
 	//Console.WriteLine("Not Implemented Yet PartA");
-	string myString = Prompt($"Enter Name: ");
-	pet.Name = myString;
+	string myString = Prompt($"Enter Last Name: ");
+	client.LastName = myString;
 }
 
-void GetAge(Pet pet)
+void GetWeight(Client client)
 {
 	//Console.WriteLine("Not Implemented Yet PartA");
-	double myDouble = PromptDoubleBetweenMinMax("Enter Height in inches: ", 0, 25);
-	pet.Age = myDouble;
+	int myInt = PromptDoubleBetweenMinMax("Enter Weight in pounds(lbs): ", 0, 120);
+	client.Weight = myDouble;
 }
 
-void GetWeight(Pet pet)
+void GetHeight(Client client)
 {
 	//Console.WriteLine("Not Implemented Yet PartA");
-	double myDouble = PromptDoubleBetweenMinMax("Enter Weight in pounds: ", 0, 200);
-	pet.Weight = myDouble;
+	double myDouble = PromptDoubleBetweenMinMax("Enter Weight in inches: ", 0, 120);
+	client.Height = myDouble;
 }
 
-void GetType(Pet pet)
-{
-	//Console.WriteLine("Not Implemented Yet PartA");
-	while(true)
-	{
-		try
-		{
-			string myString = Prompt($"Enter Type CAT or DOG: ");
-			pet.Type = myString;
-			break;
-		}
-		catch (Exception ex)
-		{
-			Console.WriteLine($"{ex.Message}");
-		}
-	}
-}
+
 
 void AddPetToList(Pet myPet, List<Pet> listOfPets)
 {
