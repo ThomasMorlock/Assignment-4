@@ -211,6 +211,7 @@ void LoadFileValuesToMemory(List<Client> listOfClients)
 				string[] items = csvFileInput[i].Split(',');
 				for(int j = 0; j < items.Length; j++)
 				{
+					items[j] = items[j].Trim();
 					//Console.WriteLine($"itemIndex: {j}; item: {items[j]}");
 				}
 				Client myClient = new(items[0], items[1], int.Parse(items[2]), int.Parse(items[3]));
@@ -228,14 +229,14 @@ void LoadFileValuesToMemory(List<Client> listOfClients)
 
 void SaveMemoryValuesToFile(List<Client> listOfClients)
 {
-	//string fileName = Prompt("Enter file name including .csv or .txt: ");
-	string fileName = "regout.csv";
-	string filePath = $"./data/{fileName}";
-	string[] csvLines = new string[listOfClients.Count];
-	for (int i = 0; i < listOfClients.Count; i++)
-	{
-		csvLines[i] = listOfClients[i].ToString();
-	}
-	File.WriteAllLines(filePath, csvLines);
-	Console.WriteLine($"Save complete. {fileName} has {listOfClients.Count} entries.");
+    string fileName = "regout.csv";
+    string filePath = $"./data/{fileName}";
+    List<string> csvLines = new List<string>();
+    foreach (Client client in listOfClients)
+    {
+        string csvLine = $"{client.FirstName}, {client.LastName}, {client.Weight}, {client.Height}";
+        csvLines.Add(csvLine);
+    }
+    File.WriteAllLines(filePath, csvLines);
+    Console.WriteLine($"Save complete. {fileName} has {listOfClients.Count} entries.");
 }
