@@ -13,11 +13,12 @@ while (loopAgain)
 		DisplayMainMenu();
 		string mainMenuChoice = Prompt("\nEnter a Main Menu Choice: ").ToUpper();
 		if (mainMenuChoice == "N")
+		{
 			myClient = NewClient();
-		if (mainMenuChoice == "S")
-			ShowClientInfo(myClient);
-		if (mainMenuChoice == "A")
 			AddClientToList(myClient, listOfClients);
+		}
+		if (mainMenuChoice == "S")
+			ShowClientInfo(myClient);			
 		if (mainMenuChoice == "F")
 			myClient = FindClientInList(listOfClients);
 		if (mainMenuChoice == "R")
@@ -58,24 +59,23 @@ while (loopAgain)
 void DisplayMainMenu()
 {
 	Console.WriteLine("\nMain Menu");
-	Console.WriteLine("N) New Client PartA");
-	Console.WriteLine("S) Show Client BMI Info PartA");
-	Console.WriteLine("E) Edit Client Info PartA");
-	Console.WriteLine("A) Add Client To List PartB");
-	Console.WriteLine("F) Find Client In List PartB");
-	Console.WriteLine("R) Remove Client From List PartB");
-	Console.WriteLine("D) Display all Clients in List PartB");
-	Console.WriteLine("Q) Quit");
+	Console.WriteLine("[N]ew Client PartA");
+	Console.WriteLine("[S]how Client BMI Info PartA");
+	Console.WriteLine("[E]dit Client Info PartA");
+	Console.WriteLine("[F]ind Client In List PartB");
+	Console.WriteLine("[R]emove Client From List PartB");
+	Console.WriteLine("[D]isplay all Clients in List PartB");
+	Console.WriteLine("[Q]uit");
 }
 
 void DisplayEditMenu()
 {
 	Console.WriteLine("Edit Menu");
-	Console.WriteLine("F) First Name");
-	Console.WriteLine("L) Last Name");
-	Console.WriteLine("W) Weight");
-	Console.WriteLine("H) Height");
-	Console.WriteLine("R) Return to Main Menu");
+	Console.WriteLine("[F]irst Name");
+	Console.WriteLine("[L]ast Name");
+	Console.WriteLine("[W]eight");
+	Console.WriteLine("[H]eight");
+	Console.WriteLine("[R]eturn to Main Menu");
 }
 
 void ShowClientInfo(Client client)
@@ -164,7 +164,7 @@ void GetWeight(Client client)
 void GetHeight(Client client)
 {
 	//Console.WriteLine("Not Implemented Yet PartA");
-	int myInt = PromptIntBetweenMinMax("Enter Weight in inches: ", 0, 150);
+	int myInt = PromptIntBetweenMinMax("Enter Height in inches: ", 0, 150);
 	client.Height = myInt;
 }
 
