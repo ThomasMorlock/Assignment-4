@@ -18,7 +18,7 @@ while (loopAgain)
 			AddClientToList(myClient, listOfClients);
 		}
 		if (mainMenuChoice == "S")
-			ShowClientInfo(myClient);			
+			ShowClientInfo(myClient);
 		if (mainMenuChoice == "F")
 			myClient = FindClientInList(listOfClients);
 		if (mainMenuChoice == "R")
@@ -80,7 +80,7 @@ void DisplayEditMenu()
 
 void ShowClientInfo(Client client)
 {
-	if(client == null)
+	if (client == null)
 		throw new Exception($"No Pet In Memory");
 	Console.WriteLine($"\n{client.ToString()}");
 	Console.WriteLine($"BMI Score    :\t{client.BmiScore:n4}");
@@ -94,11 +94,11 @@ string Prompt(string prompt)
 	{
 		try
 		{
-		Console.Write(prompt);
-		myString = Console.ReadLine().Trim();
-		if(string.IsNullOrEmpty(myString))
-			throw new Exception($"Empty Input: Please enter something.");
-		break;
+			Console.Write(prompt);
+			myString = Console.ReadLine().Trim();
+			if (string.IsNullOrEmpty(myString))
+				throw new Exception($"Empty Input: Please enter something.");
+			break;
 		}
 		catch (Exception ex)
 		{
@@ -110,23 +110,23 @@ string Prompt(string prompt)
 
 int PromptIntBetweenMinMax(string msg, int min, int max)
 {
-    int num = 0;
-    while (true)
-    {
-        try
-        {
-            Console.Write($"{msg} between {min} and {max} inclusive: ");
-            num = int.Parse(Console.ReadLine());
-            if (num < min || num > max)
-                throw new Exception($"Must be between {min} and {max}");
-            break;
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Invalid: {ex.Message}");
-        }
-    }
-    return num;
+	int num = 0;
+	while (true)
+	{
+		try
+		{
+			Console.Write($"{msg} between {min} and {max} inclusive: ");
+			num = int.Parse(Console.ReadLine());
+			if (num < min || num > max)
+				throw new Exception($"Must be between {min} and {max}");
+			break;
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Invalid: {ex.Message}");
+		}
+	}
+	return num;
 }
 
 Client NewClient()
@@ -172,31 +172,73 @@ void GetHeight(Client client)
 
 void AddClientToList(Client myClient, List<Client> listOfClients)
 {
-	//Console.WriteLine("Not Implemented Yet PartB");
 	listOfClients.Add(myClient);
 }
 
-Client FindClientInList(List<Client> listOfClients)
+Client FindClientInList(List<Client> listOfClients) // Reminds me a lot of working with sql 
 {
-	Console.WriteLine("Not Implemented Yet PartB");
-	return new Client();
+	string searchClient = Prompt("Enter either of the two based on how you want to search (first, last): ");
+	string searchTerm = Prompt($"Enter {searchClient} to search: ");
+
+	List<Client> matchingClients = new List<Client>();
+
+	foreach (Client client in listOfClients)
+	{
+		if (searchClient.ToUpper() == "FIRST" && client.FirstName.ToUpper().Contains(searchTerm.ToUpper()))
+		{
+			matchingClients.Add(client);
+		}
+		else if (searchClient.ToUpper() == "LAST" && client.LastName.ToUpper().Contains(searchTerm.ToUpper()))
+		{
+			matchingClients.Add(client);
+		}
+	}
+
+	if (matchingClients.Count == 0)
+	{
+		Console.WriteLine($"No clients found with {searchClient}: {searchTerm}");
+		return null;
+	}
+	else
+	{
+		Console.WriteLine($"Found {matchingClients.Count} clients matching the search criteria:");
+		foreach (Client matchingClient in matchingClients)
+		{
+			ShowClientInfo(matchingClient);
+		}
+		return matchingClients[0];
+	}
 }
 
 void RemoveClientFromList(Client myClient, List<Client> listOfClients)
 {
-	Console.WriteLine("Not Implemented Yet PartB");
+	// Console.WriteLine("Not Implemented Yet PartB");
+	DisplayAllClientsInList(listOfClients);
+	string removeChoice = Prompt("Enter the First Name of the Client to Remove: ");
+
+	Client clientToRemove = listOfClients.FirstOrDefault(c => c.FirstName.ToUpper() == removeChoice.ToUpper());
+	if (clientToRemove != null)
+	{
+		listOfClients.Remove(clientToRemove);
+		Console.WriteLine($"Client {clientToRemove.FirstName} removed successfully.");
+	}
+	else
+	{
+		throw new Exception($"Client with First Name: {removeChoice} not found.");
+	}
 }
 
 void DisplayAllClientsInList(List<Client> listOfClients)
 {
 	//Console.WriteLine("Not Implemented Yet PartB");
-	foreach(Client client in listOfClients)
+	foreach (Client client in listOfClients)
 		ShowClientInfo(client);
 }
 
 void LoadFileValuesToMemory(List<Client> listOfClients)
 {
-	while(true){
+	while (true)
+	{
 		try
 		{
 			//string fileName = Prompt("Enter file name including .csv or .txt: ");
@@ -205,11 +247,11 @@ void LoadFileValuesToMemory(List<Client> listOfClients)
 			if (!File.Exists(filePath))
 				throw new Exception($"The file {fileName} does not exist.");
 			string[] csvFileInput = File.ReadAllLines(filePath);
-			for(int i = 0; i < csvFileInput.Length; i++)
+			for (int i = 0; i < csvFileInput.Length; i++)
 			{
 				//Console.WriteLine($"lineIndex: {i}; line: {csvFileInput[i]}");
 				string[] items = csvFileInput[i].Split(',');
-				for(int j = 0; j < items.Length; j++)
+				for (int j = 0; j < items.Length; j++)
 				{
 					items[j] = items[j].Trim();
 					//Console.WriteLine($"itemIndex: {j}; item: {items[j]}");
@@ -229,14 +271,14 @@ void LoadFileValuesToMemory(List<Client> listOfClients)
 
 void SaveMemoryValuesToFile(List<Client> listOfClients)
 {
-    string fileName = "regout.csv";
-    string filePath = $"./data/{fileName}";
-    List<string> csvLines = new List<string>();
-    foreach (Client client in listOfClients)
-    {
-        string csvLine = $"{client.FirstName}, {client.LastName}, {client.Weight}, {client.Height}";
-        csvLines.Add(csvLine);
-    }
-    File.WriteAllLines(filePath, csvLines);
-    Console.WriteLine($"Save complete. {fileName} has {listOfClients.Count} entries.");
+	string fileName = "regout.csv";
+	string filePath = $"./data/{fileName}";
+	List<string> csvLines = new List<string>();
+	foreach (Client client in listOfClients)
+	{
+		string csvLine = $"{client.FirstName}, {client.LastName}, {client.Weight}, {client.Height}";
+		csvLines.Add(csvLine);
+	}
+	File.WriteAllLines(filePath, csvLines);
+	Console.WriteLine($"Save complete. {fileName} has {listOfClients.Count} entries.");
 }
