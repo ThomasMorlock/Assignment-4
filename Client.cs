@@ -59,7 +59,7 @@ namespace Clients
 			}
 		}
 
-		public double Weight
+		public int Weight
 		{
 			get { return _weight; }
 			set
@@ -70,7 +70,7 @@ namespace Clients
 			}
 		}
 
-		public double Height
+		public int Height
 		{
 			get { return _height; }
 			set
@@ -92,7 +92,7 @@ namespace Clients
 			}
 		}
 
-		public double BmiStatus
+		public string BmiStatus
 		{
 			get
 			{

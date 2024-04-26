@@ -17,16 +17,16 @@ while (loopAgain)
 		if (mainMenuChoice == "S")
 			ShowClientInfo(myClient);
 		if (mainMenuChoice == "A")
-			AddPetToList(myPet, listOfPets);
+			AddClientToList(myClient, listOfClients);
 		if (mainMenuChoice == "F")
-			myPet = FindPetInList(listOfPets);
+			myClient = FindClientInList(listOfClients);
 		if (mainMenuChoice == "R")
-			RemovePetFromList(myPet, listOfPets);
+			RemoveClientFromList(myClient, listOfClients);
 		if (mainMenuChoice == "D")
-			DisplayAllPetsInList(listOfPets);
+			DisplayAllClientsInList(listOfClients);
 		if (mainMenuChoice == "Q")
 		{
-			SaveMemoryValuesToFile(listOfPets);
+			SaveMemoryValuesToFile(listOfClients);
 			loopAgain = false;
 			throw new Exception("Bye, hope to see you again.");
 		}
@@ -36,16 +36,14 @@ while (loopAgain)
 			{
 				DisplayEditMenu();
 				string editMenuChoice = Prompt("\nEnter a Edit Menu Choice: ").ToUpper();
-				if (editMenuChoice == "T")
-					GetTag(myPet);
-				if (editMenuChoice == "N")
-					GetName(myPet);
-				if (editMenuChoice == "A")
-					GetAge(myPet);
+				if (editMenuChoice == "F")
+					GetFirstName(myClient);
+				if (editMenuChoice == "L")
+					GetLastName(myClient);
 				if (editMenuChoice == "W")
-					GetWeight(myPet);
-				if (editMenuChoice == "P")
-					GetType(myPet);
+					GetWeight(myClient);
+				if (editMenuChoice == "H")
+					GetHeight(myClient);
 				if (editMenuChoice == "R")
 					throw new Exception("Returning to Main Menu");
 			}
@@ -63,21 +61,20 @@ void DisplayMainMenu()
 	Console.WriteLine("N) New Client PartA");
 	Console.WriteLine("S) Show Client BMI Info PartA");
 	Console.WriteLine("E) Edit Client Info PartA");
-	Console.WriteLine("A) Add Pet To List PartB");
-	Console.WriteLine("F) Find Pet In List PartB");
-	Console.WriteLine("R) Remove Pet From List PartB");
-	Console.WriteLine("D) Display all Pets in List PartB");
+	Console.WriteLine("A) Add Client To List PartB");
+	Console.WriteLine("F) Find Client In List PartB");
+	Console.WriteLine("R) Remove Client From List PartB");
+	Console.WriteLine("D) Display all Clients in List PartB");
 	Console.WriteLine("Q) Quit");
 }
 
 void DisplayEditMenu()
 {
 	Console.WriteLine("Edit Menu");
-	Console.WriteLine("T) Tag");
-	Console.WriteLine("N) Name");
-	Console.WriteLine("A) Age");
+	Console.WriteLine("F) First Name");
+	Console.WriteLine("L) Last Name");
 	Console.WriteLine("W) Weight");
-	Console.WriteLine("P) Type");
+	Console.WriteLine("H) Height");
 	Console.WriteLine("R) Return to Main Menu");
 }
 
@@ -111,25 +108,25 @@ string Prompt(string prompt)
 	return myString;
 }
 
-double PromptDoubleBetweenMinMax(String msg, double min, double max)
+int PromptIntBetweenMinMax(string msg, int min, int max)
 {
-	double num = 0;
-	while (true)
-	{
-		try
-		{
-			Console.Write($"{msg} between {min} and {max} inclusive: ");
-			num = double.Parse(Console.ReadLine());
-			if (num < min || num > max)
-				throw new Exception($"Must be between {min:n2} and {max:n2}");
-			break;
-		}
-		catch (Exception ex)
-		{
-			Console.WriteLine($"Invalid: {ex.Message}");
-		}
-	}
-	return num;
+    int num = 0;
+    while (true)
+    {
+        try
+        {
+            Console.Write($"{msg} between {min} and {max} inclusive: ");
+            num = int.Parse(Console.ReadLine());
+            if (num < min || num > max)
+                throw new Exception($"Must be between {min} and {max}");
+            break;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Invalid: {ex.Message}");
+        }
+    }
+    return num;
 }
 
 Client NewClient()
@@ -160,44 +157,44 @@ void GetLastName(Client client)
 void GetWeight(Client client)
 {
 	//Console.WriteLine("Not Implemented Yet PartA");
-	int myInt = PromptDoubleBetweenMinMax("Enter Weight in pounds(lbs): ", 0, 120);
-	client.Weight = myDouble;
+	int myInt = PromptIntBetweenMinMax("Enter Weight in pounds(lbs): ", 0, 800);
+	client.Weight = myInt;
 }
 
 void GetHeight(Client client)
 {
 	//Console.WriteLine("Not Implemented Yet PartA");
-	double myDouble = PromptDoubleBetweenMinMax("Enter Weight in inches: ", 0, 120);
-	client.Height = myDouble;
+	int myInt = PromptIntBetweenMinMax("Enter Weight in inches: ", 0, 150);
+	client.Height = myInt;
 }
 
 
 
-void AddPetToList(Pet myPet, List<Pet> listOfPets)
+void AddClientToList(Client myClient, List<Client> listOfClients)
 {
 	//Console.WriteLine("Not Implemented Yet PartB");
-	listOfPets.Add(myPet);
+	listOfClients.Add(myClient);
 }
 
-Pet FindPetInList(List<Pet> listOfPets)
+Client FindClientInList(List<Client> listOfClients)
 {
 	Console.WriteLine("Not Implemented Yet PartB");
-	return new Pet();
+	return new Client();
 }
 
-void RemovePetFromList(Pet myPet, List<Pet> listOfPets)
+void RemoveClientFromList(Client myClient, List<Client> listOfClients)
 {
 	Console.WriteLine("Not Implemented Yet PartB");
 }
 
-void DisplayAllPetsInList(List<Pet> listOfPets)
+void DisplayAllClientsInList(List<Client> listOfClients)
 {
 	//Console.WriteLine("Not Implemented Yet PartB");
-	foreach(Pet pet in listOfPets)
-		ShowPetInfo(pet);
+	foreach(Client client in listOfClients)
+		ShowClientInfo(client);
 }
 
-void LoadFileValuesToMemory(List<Pet> listOfPets)
+void LoadFileValuesToMemory(List<Client> listOfClients)
 {
 	while(true){
 		try
@@ -216,10 +213,10 @@ void LoadFileValuesToMemory(List<Pet> listOfPets)
 				{
 					//Console.WriteLine($"itemIndex: {j}; item: {items[j]}");
 				}
-				Pet myPet = new(items[0], items[1], double.Parse(items[2]), double.Parse(items[3]), items[4]);
-				listOfPets.Add(myPet);
+				Client myClient = new(items[0], items[1], int.Parse(items[2]), int.Parse(items[3]));
+				listOfClients.Add(myClient);
 			}
-			Console.WriteLine($"Load complete. {fileName} has {listOfPets.Count} data entries");
+			Console.WriteLine($"Load complete. {fileName} has {listOfClients.Count} data entries");
 			break;
 		}
 		catch (Exception ex)
@@ -229,16 +226,16 @@ void LoadFileValuesToMemory(List<Pet> listOfPets)
 	}
 }
 
-void SaveMemoryValuesToFile(List<Pet> listOfPets)
+void SaveMemoryValuesToFile(List<Client> listOfClients)
 {
 	//string fileName = Prompt("Enter file name including .csv or .txt: ");
 	string fileName = "regout.csv";
 	string filePath = $"./data/{fileName}";
-	string[] csvLines = new string[listOfPets.Count];
-	for (int i = 0; i < listOfPets.Count; i++)
+	string[] csvLines = new string[listOfClients.Count];
+	for (int i = 0; i < listOfClients.Count; i++)
 	{
-		csvLines[i] = listOfPets[i].ToString();
+		csvLines[i] = listOfClients[i].ToString();
 	}
 	File.WriteAllLines(filePath, csvLines);
-	Console.WriteLine($"Save complete. {fileName} has {listOfPets.Count} entries.");
+	Console.WriteLine($"Save complete. {fileName} has {listOfClients.Count} entries.");
 }

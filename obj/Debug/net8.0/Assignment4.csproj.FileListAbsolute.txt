@@ -1,0 +1,15 @@
+C:\NAIT\CPSC1012\GitHub\Assignment4\obj\Debug\net8.0\Assignment4.GeneratedMSBuildEditorConfig.editorconfig
+C:\NAIT\CPSC1012\GitHub\Assignment4\obj\Debug\net8.0\Assignment4.AssemblyInfoInputs.cache
+C:\NAIT\CPSC1012\GitHub\Assignment4\obj\Debug\net8.0\Assignment4.AssemblyInfo.cs
+C:\NAIT\CPSC1012\GitHub\Assignment4\obj\Debug\net8.0\Assignment4.csproj.CoreCompileInputs.cache
+C:\NAIT\CPSC1012\GitHub\Assignment4\obj\Debug\net8.0\Assignment4.sourcelink.json
+C:\NAIT\CPSC1012\GitHub\Assignment4\bin\Debug\net8.0\Assignment4.exe
+C:\NAIT\CPSC1012\GitHub\Assignment4\bin\Debug\net8.0\Assignment4.deps.json
+C:\NAIT\CPSC1012\GitHub\Assignment4\bin\Debug\net8.0\Assignment4.runtimeconfig.json
+C:\NAIT\CPSC1012\GitHub\Assignment4\bin\Debug\net8.0\Assignment4.dll
+C:\NAIT\CPSC1012\GitHub\Assignment4\bin\Debug\net8.0\Assignment4.pdb
+C:\NAIT\CPSC1012\GitHub\Assignment4\obj\Debug\net8.0\Assignment4.dll
+C:\NAIT\CPSC1012\GitHub\Assignment4\obj\Debug\net8.0\refint\Assignment4.dll
+C:\NAIT\CPSC1012\GitHub\Assignment4\obj\Debug\net8.0\Assignment4.pdb
+C:\NAIT\CPSC1012\GitHub\Assignment4\obj\Debug\net8.0\Assignment4.genruntimeconfig.cache
+C:\NAIT\CPSC1012\GitHub\Assignment4\obj\Debug\net8.0\ref\Assignment4.dll
